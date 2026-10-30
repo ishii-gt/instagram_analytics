@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Instagram Analytics Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+/* ================= NOTEBOOK CHARTS ================= */
+
+.notebook-charts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.chart-card {
+    background: #f7f7fa;
+    border-radius: 14px;
+    padding: 18px;
+    overflow: hidden;
+}
+
+.chart-card.wide {
+    grid-column: span 2;
+}
+
+.chart-card h3 {
+    margin: 0 0 14px 0;
+    font-size: 18px;
+}
+
+.chart-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: white;
+    border-radius: 10px;
+}
+
+@media (max-width: 850px) {
+    .notebook-charts {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card.wide {
+        grid-column: span 1;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            📸 Instagram
+        </div>
+
+        <h1>
+            Performance<br>
+            Analysis
+        </h1>
+
+        <p class="subtitle">
+            Machine Learning Dashboard
+        </p>
+
+
+        <!-- Prediction Form -->
+
+        <form action="/predict" method="POST">
+
+            <label>Likes</label>
+            <input
+                type="number"
+                name="likes"
+                placeholder="Enter likes"
+                min="0"
+                required
+            >
+
+
+            <label>Comments</label>
+            <input
+                type="number"
+                name="comments"
+                placeholder="Enter comments"
+                min="0"
+                required
+            >
+
+
+            <label>Shares</label>
+            <input
+                type="number"
+                name="shares"
+                placeholder="Enter shares"
+                min="0"
+                required
+            >
+
+
+            <label>Saves</label>
+            <input
+                type="number"
+                name="saves"
+                placeholder="Enter saves"
+                min="0"
+                required
+            >
+
+
+            <label>Profile Visits</label>
+            <input
+                type="number"
+                name="profile_visits"
+                placeholder="Enter profile visits"
+                min="0"
+                required
+            >
+
+
+            <label>Follows</label>
+            <input
+                type="number"
+                name="follows"
+                placeholder="Enter follows"
+                min="0"
+                required
+            >
+
+
+            <button type="submit" class="predict-btn">
+                🔮 Predict Impressions
+            </button>
+
+        </form>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div>
+
+                <h1>
+                    Instagram Analytics
+                </h1>
+
+                <p>
+                    Analyze your post performance using Machine Learning
+                </p>
+
+            </div>
+
+
+            <div class="profile">
+                👤 &nbsp; Data Science
+            </div>
+
+        </div>
+
+
+
+        <!-- ERROR -->
+
+        {% if error %}
+
+        <div class="error">
+            ❌ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+
+        <!-- ================= CARDS ================= -->
+
+        <div class="cards">
+
+
+            <!-- Likes -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ❤️
+                </div>
+
+                <div>
+
+                    <p>Likes</p>
+
+                    <h2>
+                        {{ likes or 0 }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Comments -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💬
+                </div>
+
+                <div>
+
+                    <p>Comments</p>
+
+                    <h2>
+                        {{ comments or 0 }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Shares -->
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔄
+                </div>
+
+                <div>
+
+                    <p>Shares</p>
+
+                    <h2>
+                        {{ shares or 0 }}
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Prediction -->
+
+            <div class="card prediction">
+
+                <div class="card-icon">
+                    📈
+                </div>
+
+                <div>
+
+                    <p>
+                        Predicted Impressions
+                    </p>
+
+                    {% if prediction %}
+
+                    <h2>
+                        {{ prediction }}
+                    </h2>
+
+                    {% else %}
+
+                    <h2>
+                        ---
+                    </h2>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="content-grid">
+
+
+            <!-- ENGAGEMENT -->
+
+            <div class="panel">
+
+                <h2>
+                    📊 Engagement Overview
+                </h2>
+
+
+                <div class="engagement">
+
+
+                    <div class="engagement-box">
+
+                        <span>
+                            Likes
+                        </span>
+
+                        <strong>
+                            {{ likes or 0 }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="engagement-box">
+
+                        <span>
+                            Comments
+                        </span>
+
+                        <strong>
+                            {{ comments or 0 }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="engagement-box">
+
+                        <span>
+                            Shares
+                        </span>
+
+                        <strong>
+                            {{ shares or 0 }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="engagement-box">
+
+                        <span>
+                            Saves
+                        </span>
+
+                        <strong>
+                            {{ saves or 0 }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PERFORMANCE -->
+
+            <div class="panel">
+
+                <h2>
+                    📈 Performance
+                </h2>
+
+
+                {% if prediction %}
+
+                <div class="result">
+
+
+                    <h3>
+                        Predicted Impressions
+                    </h3>
+
+                    <div class="big-number">
+                        {{ prediction }}
+                    </div>
+
+
+
+                    <h3>
+                        Total Engagement
+                    </h3>
+
+                    <div class="big-number">
+                        {{ total_engagement }}
+                    </div>
+
+
+
+                    <h3>
+                        Engagement Rate
+                    </h3>
+
+                    <div class="big-number">
+                        {{ engagement_rate }}%
+                    </div>
+
+                </div>
+
+
+                {% else %}
+
+                <div class="empty">
+
+                    Enter your Instagram data and click
+
+                    <b>
+                        Predict Impressions
+                    </b>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= ML ANALYSIS ================= -->
+
+        <div class="bottom-panel">
+
+            <h2>
+                🤖 Machine Learning Analysis
+            </h2>
+
+
+            {% if prediction %}
+
+            <p>
+
+                Based on your Instagram engagement metrics,
+                the Machine Learning model predicts approximately
+
+                <b>
+                    {{ prediction }}
+                </b>
+
+                impressions.
+
+            </p>
+
+
+            <br>
+
+
+            <p>
+
+                <b>Profile Visits:</b>
+                {{ profile_visits }}
+
+                &nbsp;&nbsp;&nbsp;
+
+                <b>Follows:</b>
+                {{ follows }}
+
+            </p>
+
+
+            {% else %}
+
+            <p>
+
+                This dashboard uses a Polynomial Regression
+                Machine Learning model to estimate Instagram
+                impressions using engagement metrics.
+
+            </p>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- ================= CHAT ================= -->
+
+        <div class="chat-panel">
+
+            <h2>
+                💬 ML Assistant
+            </h2>
+
+            <p class="chat-subtitle">
+                Ask something about your Instagram prediction
+            </p>
+
+
+            <form action="/chat" method="POST">
+
+                <input
+                    type="text"
+                    name="question"
+                    placeholder="Example: How can I increase impressions?"
+                    required
+                >
+
+                <button type="submit">
+                    Ask AI
+                </button>
+
+            </form>
+
+
+            {% if chat_answer %}
+
+            <div class="chat-answer">
+
+                <div class="bot-icon">
+                    🤖
+                </div>
+
+                <div>
+
+                    <strong>
+                        ML Assistant
+                    </strong>
+
+                    <p>
+                        {{ chat_answer }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ================= CHARTS ================= -->
+
+        <div class="charts-section">
+
+            <div class="panel">
+
+                <h2>
+                    📊 Data Analysis Charts
+                </h2>
+
+                <p class="chart-note">
+                    Charts from your Instagram Data Analysis
+                </p>
+
+                <div class="notebook-charts">
+
+                    <div class="chart-card">
+                        <h3>Correlation Heatmap</h3>
+                        <img src="{{ url_for('static', filename='charts/01_correlation_heatmap.png') }}"
+                             alt="Correlation Heatmap">
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Likes Distribution</h3>
+                        <img src="{{ url_for('static', filename='charts/02_likes_distribution.png') }}"
+                             alt="Likes Distribution">
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Impressions Distribution</h3>
+                        <img src="{{ url_for('static', filename='charts/03_impressions_distribution.png') }}"
+                             alt="Impressions Distribution">
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Likes vs Impressions</h3>
+                        <img src="{{ url_for('static', filename='charts/04_likes_vs_impressions.png') }}"
+                             alt="Likes vs Impressions">
+                    </div>
+
+                    <div class="chart-card wide">
+                        <h3>Actual vs Predicted Impressions</h3>
+                        <img src="{{ url_for('static', filename='charts/05_actual_vs_predicted_line.png') }}"
+                             alt="Actual vs Predicted Impressions">
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Actual vs Predicted Impressions</h3>
+                        <img src="{{ url_for('static', filename='charts/06_actual_vs_predicted_scatter_linear.png') }}"
+                             alt="Actual vs Predicted Impressions">
+                    </div>
+
+                    <div class="chart-card">
+                        <h3>Polynomial Regression</h3>
+                        <img src="{{ url_for('static', filename='charts/07_polynomial_regression.png') }}"
+                             alt="Polynomial Regression">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+</body>
+</html>

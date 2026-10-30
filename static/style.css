@@ -1,0 +1,647 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f5f9;
+    color: #171717;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 325px;
+    min-width: 325px;
+    min-height: 100vh;
+    padding: 45px 26px;
+    color: white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #8438b5 0%,
+            #d91b54 48%,
+            #ff2020 70%,
+            #ff9b32 100%
+        );
+
+    position: relative;
+}
+
+
+.logo {
+    font-size: 31px;
+    font-weight: bold;
+    margin-bottom: 42px;
+}
+
+
+.sidebar h1 {
+    font-size: 30px;
+    line-height: 1.08;
+    margin-bottom: 8px;
+}
+
+
+.subtitle {
+    font-size: 16px;
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+
+/* ================= FORM ================= */
+
+.sidebar label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+
+.sidebar input {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 9px;
+    padding: 0 16px;
+    font-size: 15px;
+    outline: none;
+}
+
+
+.sidebar input::placeholder {
+    color: #777;
+}
+
+
+.predict-btn {
+    width: 100%;
+    margin-top: 30px;
+    height: 55px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #8a35b5;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.predict-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.2);
+}
+
+
+/* ================= MAIN ================= */
+
+.main {
+    flex: 1;
+    padding: 45px 40px;
+    min-width: 0;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+
+.header h1 {
+    font-size: 38px;
+    margin-bottom: 8px;
+}
+
+
+.header p {
+    color: #667085;
+    font-size: 17px;
+}
+
+
+.profile {
+    background: white;
+    padding: 18px 30px;
+    border-radius: 35px;
+    font-weight: bold;
+
+    box-shadow:
+        0 7px 20px rgba(0,0,0,0.08);
+}
+
+
+/* ================= ERROR ================= */
+
+.error {
+    background: #ffe4e4;
+    color: #d60000;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+
+/* ================= CARDS ================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+
+.card {
+    min-height: 110px;
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.06);
+}
+
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    background: #f0e3ff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 28px;
+}
+
+
+.card p {
+    color: #667085;
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+
+.card h2 {
+    font-size: 27px;
+}
+
+
+.prediction {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #9134b4,
+            #ff172c
+        );
+}
+
+
+.prediction p {
+    color: white;
+}
+
+
+.prediction .card-icon {
+    background: rgba(255,255,255,0.2);
+}
+
+
+/* ================= CONTENT ================= */
+
+.content-grid {
+    display: grid;
+
+    grid-template-columns:
+        1.5fr 0.9fr;
+
+    gap: 28px;
+    margin-bottom: 28px;
+}
+
+
+.panel {
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.06);
+}
+
+
+.panel h2 {
+    font-size: 24px;
+    margin-bottom: 28px;
+}
+
+
+/* ================= ENGAGEMENT ================= */
+
+.engagement {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+
+.engagement-box {
+    background: #f7f7fa;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+
+.engagement-box span {
+    display: block;
+    color: #667085;
+    margin-bottom: 12px;
+}
+
+
+.engagement-box strong {
+    font-size: 24px;
+}
+
+
+/* ================= PERFORMANCE ================= */
+
+.result {
+    text-align: center;
+}
+
+
+.result h3 {
+    color: #667085;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+
+.big-number {
+    font-size: 30px;
+    font-weight: bold;
+    color: #8b35b6;
+    margin-bottom: 15px;
+}
+
+
+.empty {
+    min-height: 230px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    color: #667085;
+
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* ================= ML ANALYSIS ================= */
+
+.bottom-panel {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 28px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.06);
+}
+
+
+.bottom-panel h2 {
+    font-size: 26px;
+    margin-bottom: 18px;
+}
+
+
+.bottom-panel p {
+    color: #667085;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+
+/* ================= CHAT ================= */
+
+.chat-panel {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 28px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.06);
+}
+
+
+.chat-panel h2 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+
+.chat-subtitle {
+    color: #667085;
+    margin-bottom: 20px;
+}
+
+
+.chat-panel form {
+    display: flex;
+    gap: 12px;
+}
+
+
+.chat-panel input {
+    flex: 1;
+    height: 50px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    padding: 0 16px;
+    font-size: 15px;
+    outline: none;
+}
+
+
+.chat-panel input:focus {
+    border-color: #833ab4;
+}
+
+
+.chat-panel button {
+    height: 50px;
+    padding: 0 25px;
+
+    border: none;
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #833ab4,
+            #fd1d1d
+        );
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.chat-answer {
+    display: flex;
+    gap: 15px;
+
+    margin-top: 20px;
+    padding: 18px;
+
+    background: #f8f5ff;
+
+    border-radius: 12px;
+
+    border-left: 4px solid #833ab4;
+}
+
+
+.bot-icon {
+    font-size: 30px;
+}
+
+
+.chat-answer strong {
+    display: block;
+    color: #833ab4;
+    margin-bottom: 6px;
+}
+
+
+.chat-answer p {
+    color: #555;
+    line-height: 1.6;
+}
+
+
+/* ================================================= */
+/* ================= NOTEBOOK CHARTS =============== */
+/* ================================================= */
+
+.charts-section {
+    margin-bottom: 30px;
+}
+
+
+.chart-note {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+
+/* Chart grid */
+
+.notebook-charts {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+}
+
+
+/* Individual chart */
+
+.chart-card {
+    background: #f7f7fa;
+
+    border-radius: 14px;
+
+    padding: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.05);
+}
+
+
+.chart-card h3 {
+    margin: 0 0 14px 0;
+
+    font-size: 18px;
+
+    color: #171717;
+}
+
+
+/* Chart image */
+
+.chart-card img {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    background: white;
+
+    border-radius: 10px;
+}
+
+
+/* Wide chart */
+
+.chart-card.wide {
+    grid-column: span 2;
+}
+
+
+/* Hover effect */
+
+.chart-card:hover {
+
+    transform: translateY(-3px);
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.10);
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1100px) {
+
+    .cards {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .content-grid {
+
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 850px) {
+
+    .notebook-charts {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .chart-card.wide {
+
+        grid-column: span 1;
+    }
+}
+
+
+@media (max-width: 750px) {
+
+    .dashboard {
+
+        display: block;
+    }
+
+
+    .sidebar {
+
+        width: 100%;
+        min-width: 0;
+    }
+
+
+    .main {
+
+        padding: 25px 18px;
+    }
+
+
+    .header {
+
+        display: block;
+    }
+
+
+    .profile {
+
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+
+    .cards {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .engagement {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .chat-panel form {
+
+        flex-direction: column;
+    }
+
+}
